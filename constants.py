@@ -1,7 +1,7 @@
 
 # Server
-SERVER = "192.168.0.41"
-R_PORT = 5555
+SERVER = "localhost"
+R_PORT = 8080
 S_PORT = 5007
 FORMAT = 'utf-8'
 ADDRESS = (SERVER, R_PORT)

@@ -24,13 +24,26 @@ ADDRESS = (SERVER, R_PORT)
 
 from player import Player
 
-sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sending_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-sending_socket.bind((SERVER, S_PORT))
+# R_port = port
 
-receiving_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-receiving_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-receiving_socket.bind((SERVER, R_PORT))
+try:
+    sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sending_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    sending_socket.connect((SERVER, R_PORT))
+except:
+    sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sending_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    sending_socket.connect((SERVER, R_PORT+1))
+
+try:
+    receiving_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    receiving_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    receiving_socket.connect((SERVER, S_PORT))
+except:
+    receiving_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    receiving_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    receiving_socket.connect((SERVER, S_PORT+1))
+
 
 received_list = None
 
