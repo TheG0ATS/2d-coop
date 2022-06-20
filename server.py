@@ -4,12 +4,21 @@ from random import random
 import socket
 import threading
 import pickle
+from constants import (
 
-SERVER = "192.168.0.41"
-R_PORT = 5555
-S_PORT = 5007
-FORMAT = 'utf-8'
-ADDRESS = (SERVER, R_PORT)
+    SERVER,
+    R_PORT,
+    S_PORT,
+    FORMAT,
+    ADDRESS,
+
+)
+
+# SERVER = "192.168.0.41"
+# R_PORT = 5555
+# S_PORT = 5007
+# FORMAT = 'utf-8'
+# ADDRESS = (SERVER, R_PORT)
 
 receiving_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 receiving_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
