@@ -121,4 +121,30 @@ class Game(arcade.Window):
 
         self.player.draw()
 
+    # dig deeper here
+    @staticmethod
+    def player_connected(player):
+        return player.center_y > -800
 
+    def send_to_server(self, msg):
+        try:
+            message = pickle.dumps(msg)
+            sending_socket.send(message)
+        except Exception as e:
+            print("Error in sending to server: ", e)
+
+    # Send location of player to server
+    def update_server(self):
+        local_player_data ={
+            "x": self.player.center_x,
+            "y": self.player.center_y,
+            "velocity_x": self.player.change_x,
+            "velocity_y": self.player.change_y,
+        }
+
+        self.send_to_server(local_player_data)
+
+    # Gets location of other player from server
+    def update_player_data(self):
+
+        
