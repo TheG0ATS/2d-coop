@@ -85,6 +85,9 @@ class Game(arcade.Window):
 
         self.current_level = arcade.load_tilemap(self.map_name,TILE_SCALING, layer_options)
         self.scene = arcade.Scene.from_tilemap(self.current_level)
+        self.setup_player()
+        self.setup_remote_players()
+        self.setup_physics_engine(walls=self.scene['Platforms'])
     
 
     def setup_player(self):
@@ -98,7 +101,7 @@ class Game(arcade.Window):
         for x in range(number_of_players):
             self.players_list.append(sprite=Player())
 
-    def setup_physics_engine(self, walls, ):
+    def setup_physics_engine(self, walls):
         self.physics_engine= arcade.PhysicsEnginePlatformer(self.player, GRAVITY, walls=walls)
         
     def quit_game(self):

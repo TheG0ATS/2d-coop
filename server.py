@@ -96,7 +96,7 @@ def send_server_data(connection_sending, address_sending, player_id):
     while error_counter <= max_error_count:
         try:
             connection_sending.sendto(pickle.dumps(players), (SERVER, 5007))
-            errot_counter -= 1
+            error_counter -= 1
             if error_counter < 0:
                 error_counter = 0
         
