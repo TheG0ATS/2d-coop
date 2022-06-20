@@ -146,5 +146,48 @@ class Game(arcade.Window):
 
     # Gets location of other player from server
     def update_player_data(self):
+        try:
+            for index, player in enumerate(self.players_list):
+                server_data = {
+                    'server_center_x': float(received_list[index]['x']),
+                    'server_center_y': float(received_list[index]['y']),
+                    'server_change_x': float(received_list[index]['velocity_x']),
+                    'server_change_y': float(received_list[index]['velocity_y']),
+                    'player_id': index,
+                }
+                player.player_id = index
+                if index == self.player.player_id:
+                    pass
+                else:
+                    player.update_with_server_data(server_data)
+                
+                # TODO Handle health or other variables we might want
+                # for key, value in received_list.items():
+                #     if index == self.player.player_id:
+                #         pass
+                #     player
+        except Exception as e:
+            print('Error in players list loop: ', e)
+
+    def on_update(self, delta_time):
+        if not self.player:
+            self.setup()
+        self.player.update()
+        self.player.on_update(delta_time)
+        self.physics_engine.update()
+        self.update_server()
+        self.update_player_data()
+        self.players_list.update()
+        self.players_list.on_update()
+
+def main():
+    thread = threading.Thread(target=get_server_data, args=())
+    thread.start()
+    window = Game()
+    window.setup()
+    arcade.run()
+
+if __name__ == '__main__':
+    main()
 
         
